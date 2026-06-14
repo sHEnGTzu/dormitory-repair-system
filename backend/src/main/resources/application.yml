@@ -1,0 +1,21 @@
+server:
+  port: 8012
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/dormitory_repair?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: dormitory
+    password: dormitory2025
+    driver-class-name: org.mariadb.jdbc.Driver
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+jwt:
+  secret: Reng4rAdm1n2025D0rm1t0ryRep4irSyst3mSecretKey
+  expiration: 86400000
