@@ -19,7 +19,7 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
-Write-Host "> [1/4] 安装前端依赖..." -ForegroundColor Yellow
+Write-Host "> [1/4] 安装前端依赖（如有新增依赖才会下载）..." -ForegroundColor Yellow
 Set-Location "$Root\frontend"
 npm install
 if ($LASTEXITCODE -ne 0) {
@@ -29,13 +29,18 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host ""
 
-Write-Host "> [2/4] 编译后端项目..." -ForegroundColor Yellow
-Set-Location "$Root\backend"
-.\mvnw.cmd clean package -DskipTests -q
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "[错误] 后端编译失败" -ForegroundColor Red
-    Read-Host "按回车键退出"
-    exit 1
+$jarPath = "$Root\backend\target\dormitory-repair-1.0.0.jar"
+if (Test-Path $jarPath) {
+    Write-Host "> [2/4] 后端 JAR 已存在，跳过编译" -ForegroundColor Yellow
+} else {
+    Write-Host "> [2/4] 编译后端项目（首次或 JAR 不存在时触发）..." -ForegroundColor Yellow
+    Set-Location "$Root\backend"
+    .\mvnw.cmd clean package -DskipTests -q
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[错误] 后端编译失败" -ForegroundColor Red
+        Read-Host "按回车键退出"
+        exit 1
+    }
 }
 Write-Host ""
 
