@@ -26,7 +26,7 @@ export function vitePluginRoutes(option: Option): Plugin {
     // 生成路由名称类型定义
     const typeContent = generateRouteNameType(routes)
     fs.writeFileSync(typesDir, typeContent, 'utf-8')
-    execSync(`npx prettier --write ${outputPath} ${typesDir}`)
+    execSync(`npx prettier --write "${outputPath}" "${typesDir}"`)
 
     console.log('\x1b[32mvite-plugin-vue-routes: 路由生成成功\x1b[0m')
   }
