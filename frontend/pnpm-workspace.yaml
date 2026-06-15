@@ -1,8 +1,0 @@
-packages:
-  # packages/ 直接子目录中的所有包
-  - 'packages/*'
-  # 排除测试目录中的包
-  - '!**/test/**'
-allowBuilds:
-  esbuild: set this to true or false
-  vue-demi: set this to true or false
